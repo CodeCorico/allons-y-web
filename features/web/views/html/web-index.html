@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="stylesheet" type="text/css" href="/public/vendor/plumes/plumes/plumes.css">
+  <link rel="stylesheet" type="text/css" href="/public/web/web.css">
+  <link rel="stylesheet" type="text/css" href="/public/web/web-print.css" media="print">
+
+  <link rel="manifest" href="/public/web/manifest.json">
+</head>
+<body>
+
+  <rv-require
+    name="pl-layout-platform"
+    src="/public/vendor/plumes/layouts/pl-layout-platform"
+    class="web-layout {{modal ? 'modal' : ''}}"
+
+    data-bind-title-showed="titleShowed"
+    data-bind-onloaded="onloaded"
+    data-bind-beforerequire="beforerequire"
+    data-bind-apps="apps"
+    data-bind-buttonsleft="buttonsleft"
+    data-bind-buttonsright="buttonsright"
+  >
+    <rv-partial target="message-title">
+      <span class="accent">\{{web.brand}}</span>
+    </rv-partial>
+    <rv-partial target="content">
+
+      <rv-require
+        name="web-404"
+        src="/public/web/web-404"
+        ondemand="web-404"
+      ></rv-require>
+
+      {{#inject web-layout /}}
+
+    </rv-partial>
+    <rv-partial target="context-left-panels">
+
+      {{#inject web-left-context /}}
+
+    </rv-partial>
+    <rv-partial target="context-right-panels">
+
+      {{#inject web-right-context /}}
+
+    </rv-partial>
+  </rv-require>
+
+  <div class="start-mask"></div>
+
+  <script type="text/javascript" src="/public/web/web-compact.js"></script>
+</body>
+</html>

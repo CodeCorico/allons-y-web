@@ -1,0 +1,7 @@
+{
+  "env": [{
+    "type": "input",
+    "name": "WEB_BRAND",
+    "message": "Public name of your web service:"
+  }]
+}

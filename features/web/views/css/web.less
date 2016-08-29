@@ -1,0 +1,111 @@
+@import "../less/web.less";
+@import "web-theme.less";
+
+::-ms-clear {
+  display: none;
+}
+
+body {
+  overflow: hidden;
+}
+
+.pl-screen-message .pl-screen-message-message strong {
+  color: @accentColor;
+}
+
+.start-mask {
+  z-index: 99998;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: #fff;
+}
+
+body .button-profile {
+  cursor: default;
+}
+
+.web-layout {
+  display: block !important;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  .transition(all 0.55s @easeOutQuart);
+
+  &.modal {
+    .transform(scale(2.5));
+  }
+}
+
+body .pl-layout-notifications {
+  z-index: 99;
+  position: fixed;
+}
+
+.web-users-profile-button {
+  .pl-button-indicator-image {
+    background-color: @accentColor;
+  }
+
+  &::after {
+    content: 'offline';
+    position: absolute;
+    left: 0;
+    bottom: -2rem;
+    right: 0;
+    background: #F44336;
+    color: white;
+    font-weight: 300;
+    text-transform: none;
+    line-height: 1.2;
+    text-align: center;
+    padding: 0.1rem 0;
+    letter-spacing: 0.5px;
+    .transition(all 0.45s @easeOutQuart);
+  }
+
+  &.offline {
+    .pl-button-indicator-image  {
+      .grayscale();
+    }
+
+    &::after {
+      bottom: 0;
+    }
+  }
+}
+
+.i-question, .i-info {
+  display: inline-block;
+  font-size: inherit;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-family: "SegoeUI", "Roboto", "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-style: normal;
+  font-weight: 400;
+}
+
+.i-question {
+  &::before {
+    content: "?";
+  }
+}
+
+.i-info {
+  &::before {
+    content: "i";
+  }
+}
+
+.pl-button-rounded i{
+  &.i-question, &.i-info {
+    font-weight: 400;
+    font-size: 2.2rem;
+    text-transform: none;
+  }
+}

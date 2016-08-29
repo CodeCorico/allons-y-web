@@ -1,0 +1,54 @@
+@import "web";
+
+.web-404 {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  margin-top: -3rem;
+  overflow: hidden;
+
+  .web-404-content {
+    position: relative;
+    overflow: hidden;
+  }
+
+  h1, p {
+    position: relative;
+    text-align: center;
+    margin: 0;
+    .transition(all 0.55s @easeOutQuart);
+  }
+
+  h1 {
+    .transform(translateY(6rem));
+    line-height: 1.6;
+    font-size: 5rem;
+  }
+
+  p {
+    .transform(translateY(-6rem));
+    line-height: 6rem;
+    font-size: 3rem;
+  }
+
+  &.enter {
+    h1, p {
+      .transform(translateY(0));
+    }
+
+    &.exit {
+      h1 {
+        .transform(translateY(6rem));
+      }
+
+      p {
+        .transform(translateY(-6rem));
+      }
+    }
+  }
+
+  span {
+    color: @accentColor;
+  }
+}
