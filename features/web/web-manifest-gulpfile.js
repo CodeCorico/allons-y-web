@@ -1,20 +1,39 @@
 'use strict';
 
-module.exports = function($gulp) {
+module.exports = function($allonsy, $gulp) {
 
   var fs = require('fs-extra'),
       path = require('path'),
-      manifestFile = path.join(__dirname, 'views/manifest.json'),
+      jsonfile = require('jsonfile'),
+      manifestFile = path.join(__dirname, 'views/web-manifest.json'),
       manifestDestinationPath = path.join('public/web'),
-      manifestDestination = path.join(manifestDestinationPath, 'manifest.json');
+      manifestDestination = path.join(manifestDestinationPath, 'manifest.json'),
+      manifest = fs.readFileSync(manifestFile, 'utf-8');
+
+  manifest = manifest.replace(/{{BRAND}}/g, process.env.WEB_BRAND && process.env.WEB_BRAND || '');
 
   $gulp.task('manifest', function(done) {
-    var manifest = fs.readFileSync(manifestFile, 'utf-8');
+    var manifestJSON = JSON.parse(manifest),
+        webManifestFiles = $allonsy.findInFeaturesSync('*-web-manifest.js');
 
-    manifest = manifest.replace(/{{BRAND}}/g, process.env.WEB_BRAND && process.env.WEB_BRAND || '');
+    webManifestFiles.forEach(function(webManifestFile) {
+      var manifestModule = require(path.resolve(webManifestFile));
+
+      DependencyInjection.injector.controller.invoke(null, manifestModule, {
+        controller: {
+          $manifest: function() {
+            return manifestJSON;
+          }
+        }
+      });
+    });
 
     fs.ensureDirSync(manifestDestinationPath);
-    fs.writeFileSync(manifestDestination, manifest);
+
+    jsonfile.spaces = 2;
+    jsonfile.writeFileSync(manifestDestination, manifestJSON, {
+      spaces: 2
+    });
 
     done();
   });

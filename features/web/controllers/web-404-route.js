@@ -7,7 +7,7 @@ module.exports = [{
   enter: [
     '$BodyDataService', '$i18nService', '$context', '$Layout',
   function($BodyDataService, $i18nService, $context, $Layout) {
-    document.title = $i18nService._('Page not found') + '-' + $BodyDataService.data('web').brand;
+    document.title = $i18nService._('Page not found') + ' - ' + $BodyDataService.data('web').brand;
 
     $context.state.in404 = true;
 

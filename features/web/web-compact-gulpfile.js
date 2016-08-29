@@ -10,7 +10,6 @@ module.exports = function($allonsy, $gulp) {
         'node_modules/socket.io-client/socket.io.js',
         'node_modules/events-manager/events-manager.js',
         'node_modules/jquery/dist/jquery.js',
-        'node_modules/js-cookie/src/js.cookie.js',
         'node_modules/ractive/ractive.js',
         'node_modules/ractive-require/dist/ractive-require.js',
         'node_modules/page/page.js',
