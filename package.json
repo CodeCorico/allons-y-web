@@ -20,6 +20,7 @@
   "dependencies": {
     "fs-extra": "^0.30.0",
     "gulp-concat": "^2.6.0",
-    "gulp-uglifyjs": "^0.6.2"
+    "gulp-uglifyjs": "^0.6.2",
+    "jsonfile": "^2.3.1"
   }
 }
