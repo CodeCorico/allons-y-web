@@ -5,7 +5,11 @@
       require = window.require = Ractive.require,
 
       _ractiveControllers = {},
-      _fireController = Ractive.fireController;
+      _fireController = Ractive.fireController,
+      _bootstraps = [],
+      _requiresBefore = [];
+
+  Ractive.DEBUG = /unminified/.test(function() {/*unminified*/});
 
   Ractive.controllerInjection = function(name, controller) {
     _ractiveControllers[name] = _ractiveControllers[name] || [];
@@ -70,13 +74,26 @@
     _fireController(name, Component, data, el, config, callback, tries);
   };
 
-  window.bootstrap = function(func, requiresBefore) {
+  window.bootstrap = function(requiresBeforeOrFunc, func) {
+    if (!func) {
+      func = requiresBeforeOrFunc;
+      requiresBeforeOrFunc = null;
+    }
 
+    if (func) {
+      _bootstraps.push(func);
+    }
+    if (requiresBeforeOrFunc) {
+      _requiresBefore.push(requiresBeforeOrFunc);
+    }
+  };
+
+  window.startBootstrap = function() {
     DependencyInjection.service('$socket', [function() {
       return io();
     }]);
 
-    window.async.each(requiresBefore || [], function(requireBefore, next) {
+    window.async.each(_requiresBefore, function(requireBefore, next) {
       require(requireBefore).then(next);
     }, function() {
 
@@ -89,17 +106,36 @@
           return $Page.childrenRequire[0];
         }]);
 
-        DependencyInjection.injector.view.invoke(null, func, {
-          view: {
-            $done: function() {
-              return function done() {
-                window.page();
-              };
+        var web = DependencyInjection.injector.view.get('$BodyDataService').data('web');
+
+        $Page.set('web', web);
+
+        $Page.set('apps', [{
+          name: web.brand,
+          select: function() { }
+        }]);
+
+        $Page.set('onloaded', function() {
+          $('.start-mask').remove();
+        });
+
+        window.async.each(_bootstraps, function(bootstrap, nextBootstrap) {
+
+          DependencyInjection.injector.view.invoke(null, bootstrap, {
+            view: {
+              $done: function() {
+                return nextBootstrap;
+              }
             }
-          }
+          });
+
+        }, function() {
+          $Page.require().then(function() {
+            window.page();
+          });
         });
       });
     });
   };
 
-})(this);
+})();

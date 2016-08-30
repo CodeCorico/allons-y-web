@@ -51,7 +51,7 @@ module.exports = function($allonsy, $gulp) {
 
   $gulp.task('web-compact', waitTasks, function(done) {
     for (var i = 0; i < files.length; i++) {
-      if (typeof files[i] == 'object') {
+      if (Array.isArray(files[i])) {
         for (var j = 0; j < files[i].length; j++) {
           if (fs.existsSync(files[i][j])) {
             files[i] = files[i][j];
@@ -60,7 +60,7 @@ module.exports = function($allonsy, $gulp) {
           }
         }
 
-        if (typeof files[i] == 'object') {
+        if (Array.isArray(files[i])) {
           throw new Error('File doesn\'t exists: ', files[i]);
         }
       }
