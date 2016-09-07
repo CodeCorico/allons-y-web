@@ -2,8 +2,8 @@
   'use strict';
 
   window.Ractive.controllerInjection('web-404', [
-    '$Page', '$Layout', '$i18nService', 'WebService', '$component', '$data', '$done',
-  function web404Controller($Page, $Layout, $i18nService, WebService, $component, $data, $done) {
+    '$Page', '$Layout', '$i18nService', '$WebService', '$component', '$data', '$done',
+  function web404Controller($Page, $Layout, $i18nService, $WebService, $component, $data, $done) {
 
     _toggleNowhereTitle(true);
 
@@ -11,7 +11,7 @@
       data: $data
     });
 
-    WebService.onSafe('web404Controller.beforeTeardown', function(args, callback) {
+    $WebService.onSafe('web404Controller.beforeTeardown', function(args, callback) {
       _toggleNowhereTitle(false);
 
       Web404Layout.set('exit', true);
@@ -19,12 +19,12 @@
       setTimeout(callback, 550);
     });
 
-    WebService.onSafe('web404Controller.teardown', function() {
+    $WebService.onSafe('web404Controller.teardown', function() {
       Web404Layout.teardown();
       Web404Layout = null;
 
       setTimeout(function() {
-        WebService.offNamespace('web404Controller');
+        $WebService.offNamespace('web404Controller');
       });
     });
 

@@ -17,9 +17,12 @@ module.exports = function($allonsy, $gulp) {
         'node_modules/mvw-injection/dist/mvc-injection.js',
         'public/routes/routes.js',
         'public/models/models-abstract-service.js',
+        'public/web/web-service.js',
+        'public/web/web-logs-service.js',
         'node_modules/allons-y-web/features/web/views/web-browser.js',
         'node_modules/allons-y-web/features/web/views/web-bootstrap.js',
-        'public/web/web-favicon-service.js'
+        'public/web/web-favicon-service.js',
+        'node_modules/allons-y-web/features/web/views/web-index.js'
       ],
       compactFiles = $allonsy.findInFeaturesSync('*-compact.json'),
       waitTasks = ['models', 'routes'];
@@ -43,7 +46,7 @@ module.exports = function($allonsy, $gulp) {
   });
 
   files.push('public/web/web-404-route.js');
-  files.push('node_modules/allons-y-web/features/web/views/web-index.js');
+  files.push('node_modules/allons-y-web/features/web/views/web-index-start.js');
 
   files.forEach(function(file, i) {
     files[i] = path.resolve(file);
@@ -71,16 +74,16 @@ module.exports = function($allonsy, $gulp) {
       .pipe(concat('web-compact.js', {
         newLine: '\r\n'
       }))
-      .pipe($gulp.dest('./public/web'))
+      .pipe($gulp.dist('web'))
       .pipe(uglify('web-compact.min.js', {
         outSourceMap: true
       }))
-      .pipe($gulp.dest('./public/web'))
+      .pipe($gulp.dist('web'))
       .on('end', done);
   });
 
   return {
-    task: 'web-compact',
+    tasks: 'web-compact',
     watch: files
   };
 };

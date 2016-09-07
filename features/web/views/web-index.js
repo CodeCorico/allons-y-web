@@ -1,7 +1,7 @@
 (function() {
   'use strict';
 
-  window.bootstrap(['$Page', '$done', function($Page, $done) {
+  window.bootstrap(['$Page', '$LogsService', '$done', function($Page, $LogsService, $done) {
 
     ['left', 'right'].forEach(function(orientation, after) {
       $Page[orientation + 'ButtonAdd'] = function(name, button) {
@@ -53,5 +53,4 @@
     $done();
   }]);
 
-  window.startBootstrap();
 })();

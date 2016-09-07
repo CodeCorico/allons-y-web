@@ -5,18 +5,15 @@ module.exports = [{
   priority: 'min',
 
   enter: [
-    '$BodyDataService', '$i18nService', '$context', '$Layout',
-  function($BodyDataService, $i18nService, $context, $Layout) {
+    '$WebService', '$BodyDataService', '$i18nService', '$context', '$Layout',
+  function($WebService, $BodyDataService, $i18nService, $context, $Layout) {
     document.title = $i18nService._('Page not found') + ' - ' + $BodyDataService.data('web').brand;
 
     $context.state.in404 = true;
 
-    require('/public/web/web-service.js')
+    $Layout.require('web-404')
       .then(function() {
-        return $Layout.require('web-404');
-      })
-      .then(function() {
-        DependencyInjection.injector.view.get('WebService').init();
+        $WebService.init();
       });
   }],
 
@@ -24,7 +21,7 @@ module.exports = [{
     if ($context.state && $context.state.in404) {
       $context.state.in404 = false;
 
-      return DependencyInjection.injector.view.get('WebService').teardown(null, $next);
+      return DependencyInjection.injector.view.get('$WebService').teardown(null, $next);
     }
 
     $next();

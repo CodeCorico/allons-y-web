@@ -1,12 +1,9 @@
 'use strict';
 
-module.exports = function($allonsy, $server) {
-  $allonsy.requireInFeatures('bodydata-service');
-
+module.exports = function($allonsy, $server, $BodyDataService) {
   var path = require('path'),
       fs = require('fs'),
-      indexFile = path.resolve('public/web/web-index.html'),
-      $BodyDataService = DependencyInjection.injector.controller.get('$BodyDataService');
+      indexFile = path.resolve('public/web/web-index.html');
 
   $BodyDataService.data('web', {
     brand: process.env.WEB_BRAND || ''
