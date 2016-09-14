@@ -88,50 +88,58 @@
     }
   };
 
-  window.startBootstrap = function() {
-    DependencyInjection.service('$socket', [function() {
-      return io();
-    }]);
+  window.startBootstrap = function(callback) {
+    $.get('/api/sockets-url', function(data) {
+      var socketUrl = data && data.url || null;
 
-    window.async.each(_requiresBefore, function(requireBefore, next) {
-      require(requireBefore).then(next);
-    }, function() {
+      DependencyInjection.service('$socket', [function() {
+        return io(socketUrl);
+      }]);
 
-      Ractive.Plumes.bootstrap(function($Page) {
-        DependencyInjection.view('$Page', [function() {
-          return $Page;
-        }]);
+      window.async.each(_requiresBefore, function(requireBefore, next) {
+        require(requireBefore).then(next);
+      }, function() {
 
-        DependencyInjection.view('$Layout', [function() {
-          return $Page.childrenRequire[0];
-        }]);
+        Ractive.Plumes.bootstrap(function($Page) {
+          DependencyInjection.view('$Page', [function() {
+            return $Page;
+          }]);
 
-        var web = DependencyInjection.injector.view.get('$BodyDataService').data('web');
+          DependencyInjection.view('$Layout', [function() {
+            return $Page.childrenRequire[0];
+          }]);
 
-        $Page.set('web', web);
+          var web = DependencyInjection.injector.view.get('$BodyDataService').data('web');
 
-        $Page.set('apps', [{
-          name: web.brand,
-          select: function() { }
-        }]);
+          $Page.set('web', web);
 
-        $Page.set('onloaded', function() {
-          $('.start-mask').remove();
-        });
+          $Page.set('apps', [{
+            name: web.brand,
+            select: function() { }
+          }]);
 
-        window.async.each(_bootstraps, function(bootstrap, nextBootstrap) {
-
-          DependencyInjection.injector.view.invoke(null, bootstrap, {
-            view: {
-              $done: function() {
-                return nextBootstrap;
-              }
-            }
+          $Page.set('onloaded', function() {
+            $('.start-mask').remove();
           });
 
-        }, function() {
-          $Page.require().then(function() {
-            window.page();
+          window.async.each(_bootstraps, function(bootstrap, nextBootstrap) {
+
+            DependencyInjection.injector.view.invoke(null, bootstrap, {
+              view: {
+                $done: function() {
+                  return nextBootstrap;
+                }
+              }
+            });
+
+          }, function() {
+            $Page.require().then(function() {
+              window.page();
+
+              if (callback) {
+                callback();
+              }
+            });
           });
         });
       });
