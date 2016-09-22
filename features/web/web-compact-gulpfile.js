@@ -18,7 +18,6 @@ module.exports = function($allonsy, $gulp) {
         'public/routes/routes.js',
         'public/models/models-abstract-service.js',
         'public/web/web-service.js',
-        'public/web/web-logs-service.js',
         'public/web/web-favicon-service.js',
         'public/web/web-shortcuts-service.js',
         'node_modules/allons-y-web/features/web/views/web-browser.js',
