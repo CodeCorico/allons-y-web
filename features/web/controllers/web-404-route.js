@@ -5,16 +5,18 @@ module.exports = [{
   priority: 'min',
 
   enter: [
-    '$WebService', '$BodyDataService', '$i18nService', '$context', '$Layout',
-  function($WebService, $BodyDataService, $i18nService, $context, $Layout) {
-    document.title = $i18nService._('Page not found') + ' - ' + $BodyDataService.data('web').brand;
+    '$WebService', '$Page', '$i18nService', '$context', '$Layout',
+  function($WebService, $Page, $i18nService, $context, $Layout) {
+    document.title = $i18nService._('Page not found') + ' - ' + $Page.get('web').brand;
 
     $context.state.in404 = true;
 
-    $Layout.require('web-404')
-      .then(function() {
-        $WebService.init();
-      });
+    setTimeout(function() {
+      $Layout.require('web-404')
+        .then(function() {
+          $WebService.init();
+        });
+    });
   }],
 
   exit: ['$context', '$next', function($context, $next) {
