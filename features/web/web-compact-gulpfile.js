@@ -24,11 +24,18 @@ module.exports = function($allonsy, $gulp) {
         'node_modules/allons-y-web/features/web/views/web-bootstrap.js',
         'node_modules/allons-y-web/features/web/views/web-index.js'
       ],
-      compactFiles = $allonsy.findInFeaturesSync('*-compact.json'),
+      compactFiles = $allonsy.findInFeaturesSync('*-compact.@(js|json)'),
       waitTasks = ['models', 'routes'];
 
   compactFiles.forEach(function(compactFile) {
-    var compactModule = require(path.resolve(compactFile));
+    var compactFilePath = path.resolve(compactFile),
+        compactModule = require(compactFilePath);
+
+    delete require.cache[compactFilePath];
+
+    if (typeof compactModule == 'function') {
+      compactModule = DependencyInjection.injector.controller.invoke(null, compactModule);
+    }
 
     if (compactModule && compactModule.waitTasks) {
       compactModule.waitTasks.forEach(function(waitTask) {
