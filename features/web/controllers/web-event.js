@@ -10,7 +10,16 @@ module.exports = [{
       return;
     }
 
+    var isMobile = $message.screenWidth < 450 || $message.screenHeight < 450;
+
     $allonsy.log('allons-y-web', 'route:' + $message.path, {
+      metric: $message.init ? {
+        key: isMobile ? 'webStartMobile' : 'webStart',
+        name: isMobile ? 'Start (mobile)' : 'Start (desktop & tablet)',
+        description: isMobile ?
+          'Start the platform on a mobile device.' :
+          'Start the platform on a desktop or tablet device.'
+      } : null,
       socket: $socket,
       init: !!$message.init,
       hash: typeof $message.hash == 'string' && $message.hash || null,
@@ -21,11 +30,5 @@ module.exports = [{
         height: $message.screenHeight || null
       }
     });
-
-    // if ($message.init) {
-    //   WinChartModel.updateChart('updateFeatureCount', {
-    //     feature: $message.screenWidth < 450 || $message.screenHeight < 450 ? 'startMobile' : 'start'
-    //   });
-    // }
   }
 }];
