@@ -35,7 +35,20 @@
                 _: $i18nService._
               }, config.data || {});
 
-              return component(config);
+              var Component = component(config);
+
+              Component.on('goto', function(event) {
+                var $node = $(event.node),
+                    close = $node.attr('data-close');
+
+                if (close) {
+                  DependencyInjection.injector.view.get('$Layout').closeOnNotDesktop(close.split(','));
+                }
+
+                window.page($node.attr('data-url'));
+              });
+
+              return Component;
             };
           },
 
