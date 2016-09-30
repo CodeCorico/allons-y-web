@@ -74,7 +74,7 @@
         context.on('open', function(args) {
           var rememberObj = _rememberedFromContext(context, orientation, args);
 
-          if (!rememberObj.button || !rememberObj.button.autoOpen) {
+          if (!rememberObj || !rememberObj.button || !rememberObj.button.autoOpen) {
             return;
           }
 
@@ -91,7 +91,7 @@
         context.on('beforeCloseContent', function(args) {
           var rememberObj = _rememberedFromContext(context, orientation, args);
 
-          if (!rememberObj.button) {
+          if (!rememberObj || !rememberObj.button) {
             return;
           }
 
