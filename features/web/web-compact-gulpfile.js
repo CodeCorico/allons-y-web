@@ -22,6 +22,7 @@ module.exports = function($allonsy, $gulp) {
         'public/web/web-shortcuts-service.js',
         'node_modules/allons-y-web/features/web/views/web-browser.js',
         'node_modules/allons-y-web/features/web/views/web-bootstrap.js',
+        'node_modules/allons-y-web/features/web/views/web-extend-page.js',
         'node_modules/allons-y-web/features/web/views/web-index.js'
       ],
       compactFiles = $allonsy.findInFeaturesSync('*-compact.@(js|json)'),

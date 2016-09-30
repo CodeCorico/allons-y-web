@@ -4,9 +4,13 @@ module.exports = {
   url: '*',
   priority: 'max',
 
-  enter: ['$RealTimeService', '$socket', '$context', '$next', function($RealTimeService, $socket, $context, $next) {
+  enter: [
+    '$RealTimeService', '$Page', '$socket', '$context', '$next',
+  function($RealTimeService, $Page, $socket, $context, $next) {
 
     $RealTimeService.url(document.location.pathname);
+
+    $Page.refreshRemember();
 
     var _$el = {
       window: $(window)
