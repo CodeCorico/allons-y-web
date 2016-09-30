@@ -4,7 +4,9 @@ module.exports = function($allonsy, $gulp) {
 
   var path = require('path'),
       concat = require('gulp-concat'),
-      uglify = require('gulp-uglifyjs'),
+      sourcemaps = require('gulp-sourcemaps'),
+      uglify = require('gulp-uglify'),
+      rename = require('gulp-rename'),
       fs = require('fs'),
       files = [
         'node_modules/socket.io-client/socket.io.js',
@@ -83,9 +85,18 @@ module.exports = function($allonsy, $gulp) {
         newLine: '\r\n'
       }))
       .pipe($gulp.dist('web'))
-      .pipe(uglify('web-compact.min.js', {
-        outSourceMap: true
+      .pipe(sourcemaps.init())
+      .pipe(uglify().on('error', function(err) {
+        $allonsy.logWarning('allons-y-web', 'web:compact-uglify', {
+          error: err
+        });
+
+        this.emit('end');
       }))
+      .pipe(rename({
+        extname: '.min.js'
+      }))
+      .pipe(sourcemaps.write('./'))
       .pipe($gulp.dist('web'))
       .on('end', done);
   });

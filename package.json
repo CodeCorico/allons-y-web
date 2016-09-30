@@ -20,7 +20,9 @@
   "dependencies": {
     "fs-extra": "^0.30.0",
     "gulp-concat": "^2.6.0",
-    "gulp-uglifyjs": "^0.6.2",
+    "gulp-rename": "^1.2.2",
+    "gulp-sourcemaps": "^1.6.0",
+    "gulp-uglify": "^2.0.0",
     "jsonfile": "^2.3.1"
   }
 }
