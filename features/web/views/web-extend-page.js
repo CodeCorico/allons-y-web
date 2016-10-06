@@ -64,9 +64,13 @@
         return;
       }
 
-      _hasContextsEvents = true;
-
       var $Layout = DependencyInjection.injector.view.get('$Layout');
+
+      if (!$Layout.leftContext() || !$Layout.rightContext()) {
+        return setTimeout(_contextsEvents, 10);
+      }
+
+      _hasContextsEvents = true;
 
       ['left', 'right'].forEach(function(orientation) {
         var context = $Layout[orientation + 'Context']();
