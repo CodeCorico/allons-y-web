@@ -28,7 +28,7 @@ module.exports = function($allonsy, $gulp) {
         'node_modules/allons-y-web/features/web/views/web-index.js'
       ],
       compactFiles = $allonsy.findInFeaturesSync('*-compact.@(js|json)'),
-      waitTasks = ['models', 'routes'];
+      waitTasks = ['models', 'routes', 'minify'];
 
   compactFiles.forEach(function(compactFile) {
     var compactFilePath = path.resolve(compactFile),
