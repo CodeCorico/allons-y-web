@@ -133,6 +133,12 @@
     };
 
     $Page.refreshRemember = function() {
+      var $Layout = DependencyInjection.injector.view.get('$Layout');
+
+      if ($Layout.get('screen') != 'screen-desktop') {
+        return;
+      }
+
       var url = _locationRemembered();
 
       if (!url || url == _lastRememberedUrl) {
@@ -145,8 +151,6 @@
       if (!uiCookie[url]) {
         return $Page;
       }
-
-      var $Layout = DependencyInjection.injector.view.get('$Layout');
 
       ['left', 'right'].forEach(function(orientation) {
         if (typeof uiCookie[url][orientation] == 'undefined') {
