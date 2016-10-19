@@ -9,23 +9,23 @@ module.exports = function($allonsy, $gulp) {
       rename = require('gulp-rename'),
       fs = require('fs'),
       files = [
-        'node_modules/socket.io-client/socket.io.js',
-        'node_modules/events-manager/events-manager.js',
-        'node_modules/jquery/dist/jquery.js',
-        'node_modules/ractive/ractive.js',
-        'node_modules/ractive-require/dist/ractive-require.js',
-        'node_modules/page/page.js',
-        'node_modules/plumes/public/plumes/plumes.js',
-        'node_modules/mvw-injection/dist/mvc-injection.js',
-        'public/routes/routes.js',
-        'public/models/models-abstract-service.js',
-        'public/web/web-service.js',
-        'public/web/web-favicon-service.js',
-        'public/web/web-shortcuts-service.js',
-        'node_modules/allons-y-web/features/web/views/web-browser.js',
-        'node_modules/allons-y-web/features/web/views/web-bootstrap.js',
-        'node_modules/allons-y-web/features/web/views/web-extend-page.js',
-        'node_modules/allons-y-web/features/web/views/web-index.js'
+        './node_modules/socket.io-client/socket.io.js',
+        './node_modules/events-manager/events-manager.js',
+        './node_modules/jquery/dist/jquery.js',
+        './node_modules/ractive/ractive.js',
+        './node_modules/ractive-require/dist/ractive-require.js',
+        './node_modules/page/page.js',
+        './node_modules/plumes/public/plumes/plumes.js',
+        './node_modules/mvw-injection/dist/mvc-injection.js',
+        './public/routes/routes.js',
+        './public/models/models-abstract-service.js',
+        './public/web/web-service.js',
+        './public/web/web-favicon-service.js',
+        './public/web/web-shortcuts-service.js',
+        path.resolve(__dirname, 'views/web-browser.js'),
+        path.resolve(__dirname, 'views/web-bootstrap.js'),
+        path.resolve(__dirname, 'views/web-extend-page.js'),
+        path.resolve(__dirname, 'views/web-index.js')
       ],
       compactFiles = $allonsy.findInFeaturesSync('*-compact.@(js|json)'),
       waitTasks = ['models', 'routes', 'minify'];
@@ -55,8 +55,8 @@ module.exports = function($allonsy, $gulp) {
     files = files.concat(compactModule.files);
   });
 
-  files.push('public/web/web-404-route.js');
-  files.push('node_modules/allons-y-web/features/web/views/web-index-start.js');
+  files.push('./public/web/web-404-route.js');
+  files.push(path.resolve(__dirname, 'views/web-index-start.js'));
 
   files.forEach(function(file, i) {
     files[i] = path.resolve(file);
