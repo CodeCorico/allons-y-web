@@ -8,6 +8,9 @@ module.exports = function() {
   var path = require('path');
 
   return {
-    lessPaths: [path.resolve(__dirname, 'views/less')]
+    lessPaths: [
+      path.resolve('./'),
+      path.resolve(__dirname, 'views/less')
+    ]
   };
 };
