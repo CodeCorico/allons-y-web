@@ -32,6 +32,7 @@ module.exports = function($allonsy, $gulp) {
 
   compactFiles.forEach(function(compactFile) {
     var compactFilePath = path.resolve(compactFile),
+        compactFilePathDir = path.dirname(compactFile),
         compactModule = require(compactFilePath);
 
     delete require.cache[compactFilePath];
@@ -51,6 +52,12 @@ module.exports = function($allonsy, $gulp) {
     if (!compactModule || !compactModule.files) {
       return;
     }
+
+    compactModule.files.forEach(function(file, i) {
+      if (file.indexOf('~') === 0) {
+        compactModule.files[i] = path.join(compactFilePathDir, file.substr(1, file.length - 1));
+      }
+    });
 
     files = files.concat(compactModule.files);
   });
