@@ -2,7 +2,10 @@
   'use strict';
 
   window.bootstrap(['$ShortcutsService', '$i18nService', '$done', function($ShortcutsService, $i18nService, $done) {
-    var _fullscreenOpened = [false, false];
+    var _fullscreenOpened = {
+      left: false,
+      right: false
+    };
 
     $ShortcutsService.register(
       null,
@@ -22,17 +25,35 @@
       },
       function() {
         var $Layout = DependencyInjection.injector.view.get('$Layout'),
-            fullscreenOpened = [$Layout.leftContext().get('opened'), $Layout.rightContext().get('opened')];
+            fullscreenOpened = {
+              left: false,
+              right: false
+            },
+            contexts = {},
+            $contexts = {};
 
-        if (!fullscreenOpened[0] && !fullscreenOpened[1]) {
-          if (_fullscreenOpened[0]) {
-            $Layout.leftContext().open(null, false);
-          }
-          if (_fullscreenOpened[1]) {
-            $Layout.rightContext().open(null, false);
-          }
+        ['left', 'right'].forEach(function(direction) {
+          contexts[direction] = $Layout[direction + 'Context']();
+          $contexts[direction] = $(contexts[direction].el);
 
-          _fullscreenOpened = [false, false];
+          if (contexts[direction].get('opened')) {
+            fullscreenOpened[direction] = $contexts[direction].find('.pl-group.opened').attr('data-group') || false;
+          }
+        });
+
+        if (!fullscreenOpened.left && !fullscreenOpened.right) {
+          ['left', 'right'].forEach(function(direction) {
+            if (_fullscreenOpened[direction]) {
+              $contexts[direction].find('[data-group="' + _fullscreenOpened[direction] + '"]').addClass('opened');
+
+              $Layout[direction + 'Context']().open(null, false, _fullscreenOpened[direction]);
+            }
+          });
+
+          _fullscreenOpened = {
+            left: false,
+            right: false
+          };
         }
         else {
           _fullscreenOpened = fullscreenOpened;
