@@ -6,8 +6,8 @@
 
       _ractiveControllers = {},
       _fireController = Ractive.fireController,
-      _bootstraps = [],
-      _requiresBefore = [];
+      _beforeBootstraps = [],
+      _bootstraps = [];
 
   Ractive.DEBUG = /unminified/.test(function() {/*unminified*/});
 
@@ -87,72 +87,73 @@
     _fireController(name, Component, data, el, config, callback, tries);
   };
 
-  window.bootstrap = function(requiresBeforeOrFunc, func) {
-    if (!func) {
-      func = requiresBeforeOrFunc;
-      requiresBeforeOrFunc = null;
-    }
+  window.beforeBootstrap = function(func) {
+    _beforeBootstraps.push(func);
+  };
 
-    if (func) {
-      _bootstraps.push(func);
-    }
-    if (requiresBeforeOrFunc) {
-      _requiresBefore.push(requiresBeforeOrFunc);
-    }
+  window.bootstrap = function(func) {
+    _bootstraps.push(func);
   };
 
   window.startBootstrap = function(callback) {
-    $.get('/api/sockets-url', function(data) {
-      var socketUrl = data && data.url || null;
+    var $BodyDataService = DependencyInjection.injector.view.get('$BodyDataService'),
+        socketUrl = $BodyDataService.data('sockets').url;
 
-      DependencyInjection.service('$socket', [function() {
-        return io(socketUrl);
-      }]);
+    DependencyInjection.service('$socket', [function() {
+      return io(socketUrl);
+    }]);
 
-      window.async.each(_requiresBefore, function(requireBefore, next) {
-        require(requireBefore).then(next);
-      }, function() {
+    window.async.each(_beforeBootstraps, function(beforeBootstrap, nextBeforeBootstrap) {
 
-        Ractive.Plumes.bootstrap(function($Page) {
-          DependencyInjection.view('$Page', [function() {
-            return $Page;
-          }]);
+      DependencyInjection.injector.view.invoke(null, beforeBootstrap, {
+        view: {
+          $done: function() {
+            return nextBeforeBootstrap;
+          }
+        }
+      });
 
-          DependencyInjection.view('$Layout', [function() {
-            return $Page.childrenRequire[0];
-          }]);
+    }, function() {
 
-          var web = DependencyInjection.injector.view.get('$BodyDataService').data('web');
+      Ractive.Plumes.bootstrap(function($Page) {
+        DependencyInjection.view('$Page', [function() {
+          return $Page;
+        }]);
 
-          $Page.set('web', web);
+        DependencyInjection.view('$Layout', [function() {
+          return $Page.childrenRequire[0];
+        }]);
 
-          $Page.set('apps', [{
-            name: web.brand,
-            select: function() { }
-          }]);
+        var web = $BodyDataService.data('web');
 
-          $Page.set('onloaded', function() {
-            $('.start-mask').remove();
+        $Page.set('web', web);
+
+        $Page.set('apps', [{
+          name: web.brand,
+          select: function() { }
+        }]);
+
+        $Page.set('onloaded', function() {
+          $('.start-mask').remove();
+        });
+
+        window.async.each(_bootstraps, function(bootstrap, nextBootstrap) {
+
+          DependencyInjection.injector.view.invoke(null, bootstrap, {
+            view: {
+              $done: function() {
+                return nextBootstrap;
+              }
+            }
           });
 
-          window.async.each(_bootstraps, function(bootstrap, nextBootstrap) {
+        }, function() {
+          $Page.require().then(function() {
+            window.page();
 
-            DependencyInjection.injector.view.invoke(null, bootstrap, {
-              view: {
-                $done: function() {
-                  return nextBootstrap;
-                }
-              }
-            });
-
-          }, function() {
-            $Page.require().then(function() {
-              window.page();
-
-              if (callback) {
-                callback();
-              }
-            });
+            if (callback) {
+              callback();
+            }
           });
         });
       });
