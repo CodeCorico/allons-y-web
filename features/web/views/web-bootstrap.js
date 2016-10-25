@@ -2,12 +2,12 @@
   'use strict';
 
   var Ractive = window.Ractive,
-      require = window.require = Ractive.require,
-
       _ractiveControllers = {},
       _fireController = Ractive.fireController,
       _beforeBootstraps = [],
       _bootstraps = [];
+
+  window.require = Ractive.require;
 
   Ractive.DEBUG = /unminified/.test(function() {/*unminified*/});
 
