@@ -5,7 +5,7 @@ module.exports = function() {
 
     return new (function $FaviconService() {
 
-      var _$el = $('link[type="image/x-icon"], link[rel="icon"][type="image/png"]'),
+      var _$el = $('link[type="image/x-icon"], link[rel="icon"][type="image/png"], link[rel="icon shortcut"]'),
           _fileUrl = _$el.attr('href');
 
       this.update = function(url) {
