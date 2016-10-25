@@ -28,7 +28,7 @@
     "allons-y-plumes": "^1.0.1",
     "allons-y-public": "^1.0.0",
     "allons-y-realtime": "^1.0.0",
-    "allons-y-routes": "^1.0.0",
+    "allons-y-routes": "^1.0.1",
     "allons-y-socketio": "^1.0.2",
     "fs-extra": "^0.30.0",
     "gulp-concat": "^2.6.0",
