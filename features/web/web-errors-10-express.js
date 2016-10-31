@@ -25,7 +25,7 @@ module.exports = function($allonsy, $server) {
               'font-size: 1.5em;',
               'line-height: 1.6;',
               'font-weight: 300;',
-              'font-family: "SegoeUI", "Roboto", "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;',
+              'font-family: "Segoe UI", "Roboto", "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;',
               'color: #222;',
             '}',
             'h1 {',
