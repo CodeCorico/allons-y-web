@@ -108,8 +108,7 @@ module.exports = function($allonsy, $gulp) {
       .on('end', done);
   });
 
-  return {
-    tasks: 'web-compact',
-    watch: files
-  };
+  // Don't watch /public files because of infinite watcher loop
+
+  return 'web-compact';
 };
