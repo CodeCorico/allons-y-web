@@ -11,7 +11,7 @@
       null,
       'web-f10',
       'F10',
-      $i18nService._('Close the context panels'),
+      $i18nService._('Close/Open the context panels'),
       function(e) {
         // F10
         var isShortcut = e.keyCode == 121 && !e.ctrlKey && !e.altKey && !e.shiftKey && !e.metaKey;
