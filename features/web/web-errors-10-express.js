@@ -19,7 +19,7 @@ module.exports = function($allonsy, $server) {
           '<meta charset="utf-8">',
           '<title>Server error</title>',
           '<meta name="viewport" content="width=device-width, initial-scale=1">',
-          '<link href="http://fonts.googleapis.com/css?family=Roboto:500,300,700,400" rel="stylesheet" type="text/css">',
+          '<link href="https://fonts.googleapis.com/css?family=Roboto:500,300,700,400" rel="stylesheet" type="text/css">',
           '<style type="text/css">',
             'body {',
               'font-size: 1.5em;',
