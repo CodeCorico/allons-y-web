@@ -1,3 +1,13 @@
+<a name="1.0.4"></a>
+# [1.0.4](https://github.com/CodeCorico/allons-y-web/compare/1.0.3...1.0.4) (2016-11-21)
+
+### Features
+* **web:** apply the new official Allons-y logo [#fe89270](https://github.com/CodeCorico/allons-y-web/commit/fe89270)
+
+### Bug Fixes
+* **web index:** fullscreen shortcut wording [#8dadb71](https://github.com/CodeCorico/allons-y-web/commit/8dadb71)
+* **web errors 10 express:** use https fro calling fonts.googleapis.com [#ea7adc7](https://github.com/CodeCorico/allons-y-web/commit/ea7adc7)
+
 <a name="1.0.3"></a>
 # [1.0.3](https://github.com/CodeCorico/allons-y-web/compare/1.0.2...1.0.3) (2016-11-02)
 
