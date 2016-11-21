@@ -3,8 +3,6 @@
 # Allons-y-web
 
 [![Join the chat at https://gitter.im/CodeCorico/allons-y](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/CodeCorico/allons-y?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
-[![Issue Stats](http://issuestats.com/github/codecorico/allons-y-web/badge/issue)](http://issuestats.com/github/codecorico/allons-y)
-[![Issue Stats](http://issuestats.com/github/codecorico/allons-y-web/badge/pr)](http://issuestats.com/github/codecorico/allons-y)
 [![npm version](https://badge.fury.io/js/allons-y-web.svg)](https://badge.fury.io/js/allons-y-web)
 
 Allons-y-web is an [allons-y](https://github.com/CodeCorico/allons-y) module that creates an empty web platform based on [Plumes](https://www.npmjs.com/package/allons-y-plumes) with the [realtime](https://www.npmjs.com/package/allons-y-realtime) support.
