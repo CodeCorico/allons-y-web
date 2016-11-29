@@ -39,13 +39,16 @@
 
               Component.on('goto', function(event) {
                 var $node = $(event.node),
-                    close = $node.attr('data-close');
+                    close = $node.attr('data-close'),
+                    url = $node.attr('data-url');
 
                 if (close) {
                   DependencyInjection.injector.view.get('$Layout').closeOnNotDesktop(close.split(','));
                 }
 
-                window.page($node.attr('data-url'));
+                if (url) {
+                  window.page(url);
+                }
               });
 
               return Component;
