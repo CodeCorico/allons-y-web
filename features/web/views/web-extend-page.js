@@ -135,7 +135,7 @@
     $Page.refreshRemember = function() {
       var $Layout = DependencyInjection.injector.view.get('$Layout');
 
-      if ($Layout.get('screen') != 'screen-desktop') {
+      if (!$Layout || $Layout.get('screen') != 'screen-desktop') {
         return;
       }
 
@@ -241,7 +241,7 @@
             for (var i = 0; i < uiCookieUrls.length; i++) {
               var url = uiCookieUrls[i];
 
-              if (typeof uiCookie[url][orientation] == 'undefined') {
+              if (!url || url == 'null' || typeof uiCookie[url][orientation] == 'undefined') {
                 continue;
               }
 
