@@ -1,3 +1,15 @@
+<a name="1.0.5"></a>
+# [1.0.5](https://github.com/CodeCorico/allons-y-web/compare/1.0.4...1.0.5) (2016-11-29)
+
+### Features
+* **web index express:** know if the browser is a prerender instance [#eba0f1a](https://github.com/CodeCorico/allons-y-web/commit/eba0f1a)
+* **web 404:** add a special meta tag on prerender [#8407bae](https://github.com/CodeCorico/allons-y-web/commit/8407bae)
+
+### Bug Fixes
+* **web extend page:** check for url before getting its pattern [#24ac3bb](https://github.com/CodeCorico/allons-y-web/commit/24ac3bb)
+* **web compact gulpfile:** update the socket.io-client dist file path [#3e13967](https://github.com/CodeCorico/allons-y-web/commit/3e13967)
+* **web bootstrap:** redirect the goto only if url is used [#34ff788](https://github.com/CodeCorico/allons-y-web/commit/34ff788)
+
 <a name="1.0.4"></a>
 # [1.0.4](https://github.com/CodeCorico/allons-y-web/compare/1.0.3...1.0.4) (2016-11-21)
 
