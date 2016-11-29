@@ -9,7 +9,7 @@ module.exports = function($allonsy, $gulp) {
       rename = require('gulp-rename'),
       fs = require('fs'),
       files = [
-        './node_modules/socket.io-client/socket.io.js',
+        './node_modules/socket.io-client/dist/socket.io.js',
         './node_modules/events-manager/events-manager.js',
         './node_modules/jquery/dist/jquery.js',
         './node_modules/ractive/ractive.js',
