@@ -11,6 +11,12 @@ module.exports = function($allonsy, $server, $BodyDataService) {
   $BodyDataService.data(null, 'web', web);
 
   $server.use(function(req, res) {
+    var userAgent = req.headers['user-agent'] || '';
+
+    if (userAgent.match(/prerender/i)) {
+      $BodyDataService.data(req, 'prerender', true);
+    }
+
     res.send($BodyDataService.inject(req, fs.existsSync(indexFile) ? fs.readFileSync(indexFile, 'utf-8') : ''));
   });
 };
