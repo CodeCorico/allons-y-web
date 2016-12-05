@@ -1,3 +1,12 @@
+<a name="1.0.7"></a>
+# [1.0.7](https://github.com/CodeCorico/allons-y-web/compare/1.0.6...1.0.7) (2016-12-05)
+
+### Features
+* **web 404:** add an explication text when no permissions [#76581b4](https://github.com/CodeCorico/allons-y-web/commit/76581b4)
+
+### Bug Fixes
+* **web print:** remove the web-layout fixed position [#ffc0473](https://github.com/CodeCorico/allons-y-web/commit/ffc0473)
+
 <a name="1.0.6"></a>
 # [1.0.6](https://github.com/CodeCorico/allons-y-web/compare/1.0.5...1.0.6) (2016-11-30)
 
