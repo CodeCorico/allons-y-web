@@ -1,3 +1,9 @@
+<a name="1.0.8"></a>
+# [1.0.8](https://github.com/CodeCorico/allons-y-web/compare/1.0.7...1.0.8) (2017-03-05)
+
+### Bug Fixes
+* **web index:** block the mobile users to zoom on the view (pinch) [#29b91a6](https://github.com/CodeCorico/allons-y-web/commit/29b91a6)
+
 <a name="1.0.7"></a>
 # [1.0.7](https://github.com/CodeCorico/allons-y-web/compare/1.0.6...1.0.7) (2016-12-05)
 
